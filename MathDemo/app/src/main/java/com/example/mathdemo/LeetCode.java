@@ -7,10 +7,10 @@ import java.util.HashMap;
  * Created by xty on 21-2-22.
  * <p>
  * 这里是b站 爱学习的饲养员
- *
+ * <p>
  * 1.按知识点刷题
  * 2.刷经典题  top 100
- *
+ * <p>
  * 70道
  * 数组：485/283/27
  * 链表：203/206
@@ -20,7 +20,7 @@ import java.util.HashMap;
  * 集合set：217/705
  * 堆：215/692
  * 树和图
- *
+ * <p>
  * 算法*
  * 双指针：141/344/881
  * 二分找出法：704/35/162/74
@@ -36,7 +36,6 @@ import java.util.HashMap;
  * 动态规划：509/62/121/70/279/221
  * 拓扑排序：207/210
  * 前缀树：208/720/692
- *
  */
 public class LeetCode {
 
@@ -67,18 +66,7 @@ public class LeetCode {
             if (hashMap.containsKey(target - nums[i])) {
                 return new int[]{hashMap.get(target - nums[i]), i};
             }
-        }
-        return new int[]{-1, -1};
-    }
-
-    public static int[] twoSum2(int[] nums, int target) {
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (hashMap.containsKey(target - nums[i])) {
-                return new int[]{hashMap.get(target - nums[i]), i};
-            }
             hashMap.put(nums[i], i);
-
         }
         return new int[]{-1, -1};
     }
@@ -91,7 +79,8 @@ public class LeetCode {
      * <p>
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode-cn.com/problems/boats-to-save-people
-     * <p>
+     *
+     * [1,2,2,3,4,5] limit = 5;
      * 解法：
      * 数组有序，相撞指针
      */
@@ -237,19 +226,6 @@ public class LeetCode {
             fast = head.next.next;
             slow = slow.next;
             if (fast == slow)
-                return true;
-        }
-        return false;
-    }
-
-    public static boolean hasCycle2(Node head) {
-        if (head == null) return false;
-        Node fast = head;
-        Node slow = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-            if (slow == fast)
                 return true;
         }
         return false;

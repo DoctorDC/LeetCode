@@ -60,7 +60,7 @@ public class HighFreeCode {
             this.next = next;
         }
     }
-
+    //迭代法
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         int total = 0;//相加的和
         int next = 0;//是否进位
@@ -81,17 +81,20 @@ public class HighFreeCode {
             cur.next = new ListNode(total % 10);
             next = total / 10;
             l1 = l1.next;
+            cur = cur.next;
         }
         while (l2 != null) {
             total = l2.val + next;
             cur.next = new ListNode(total % 10);
             next = total / 10;
             l2 = l2.next;
+            cur = cur.next;
+
         }
         if (next != 0) {
             cur.next = new ListNode(next);
         }
-        return cur.next;
+        return result.next;
     }
 
 }
