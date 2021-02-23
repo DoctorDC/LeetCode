@@ -1,5 +1,7 @@
 package com.example.mathdemo;
 
+import android.util.Log;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -38,6 +40,210 @@ import java.util.HashMap;
  * 前缀树：208/720/692
  */
 public class LeetCode {
+
+    /**
+     * 485.给定一个二进制数组， 计算其中最大连续 1 的个数。
+     * <p>
+     * 输入：[1,1,0,1,1,1]
+     * 输出：3
+     * 解释：开头的两位和最后的三位都是连续 1 ，所以最大连续 1 的个数是 3.
+     * <p>
+     * https://leetcode-cn.com/problems/max-consecutive-ones/
+     */
+    public static int findMaxConsecutiveOnes(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return 0;
+        int res = 0;
+        nums[0] = nums[0] == 0 ? 0 : 1;
+        res = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                nums[i] = nums[i - 1] + 1;
+            } else {
+                nums[i] = 0;
+            }
+            res = Math.max(res, nums[i]);
+
+        }
+        return res;
+    }
+
+    // 多用一个变量，便于理解 ok
+    public static int findMaxConsecutiveOnes2(int[] nums) {
+        int index = 0;
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                index++;
+            } else {
+                index = 0;
+            }
+            sum = Math.max(sum, index);
+
+        }
+        return sum;
+    }
+
+    /**
+     * 283 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+     * 输入: [0,1,0,3,12]
+     * 输出: [1,3,12,0,0]
+     * <p>
+     * tips：
+     * 需要一个变量来操作原来的数组
+     * if num[i] != 0 将num[index] = num[i]
+     * <p>
+     * https://leetcode-cn.com/problems/move-zeroes/
+     */
+    public static void moveZeroes(int[] nums) {
+        int index = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        for (int i = index; i < nums.length; i++) {
+            nums[i] = 0;
+        }
+    }
+
+    public static void moveZeroes2(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return;
+        int index = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        for (int i = index; i < nums.length; i++) {
+            nums[i] = 0;
+        }
+    }
+
+    /**
+     * 27 移除元素
+     * <p>
+     * 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
+     * <p>
+     * 不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
+     * <p>
+     * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+     * <p>
+     * 链接：https://leetcode-cn.com/problems/remove-element
+     */
+
+    public static int removeElement(int[] nums, int val) {
+        int l = 0;
+        int r = nums.length - 1;
+        while (l < r) {
+            while (l < r && nums[l] != val)
+                l++;
+            while (l < r && nums[r] == val)
+                r--;
+            int temp = nums[l];
+            nums[l] = nums[r];
+            nums[r] = temp;
+//            Log.d("1234","aa=="+Arrays.toString(nums));
+        }
+        if (nums[l] == val) {
+            return l;
+        } else {
+            return l + 1;
+        }
+    }
+
+    public static int removeElement2(int[] nums, int val) {
+        int l = 0;
+        int r = nums.length -1;
+        while (l < r) {
+            while (l < r && nums[l] != val)
+                l++;
+            while (l < r && nums[r] == val)
+                r--;
+            int temp = nums[l];
+            nums[l] = nums[r];
+            nums[r] = temp;
+        }
+        return nums[l] == val ? nums[l] : nums[l] + 1;
+    }
+
+    /**
+     * 203. 移除链表元素
+     * <p>
+     * 删除链表中等于给定值 val 的所有节点。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入: 1->2->6->3->4->5->6, val = 6
+     * 输出: 1->2->3->4->5
+     * <p>
+     * https://leetcode-cn.com/problems/remove-linked-list-elements/
+     */
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public static ListNode removeElements(ListNode head, int val) {
+
+    }
+
+    /**
+     * 206. 反转链表
+     * 反转一个单链表。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入: 1->2->3->4->5->NULL
+     * 输出: 5->4->3->2->1->NULL
+     * <p>
+     * https://leetcode-cn.com/problems/reverse-linked-list/
+     */
+
+    public static ListNode reverseList(ListNode head) {
+
+    }
+
+    /**
+     * 933. 最近的请求次数
+     *
+     * 输入：
+     * ["RecentCounter", "ping", "ping", "ping", "ping"]
+     * [[], [1], [100], [3001], [3002]]
+     * 输出：
+     * [null, 1, 2, 3, 3]
+     *
+     * 解释：
+     * RecentCounter recentCounter = new RecentCounter();
+     * recentCounter.ping(1);     // requests = [1]，范围是 [-2999,1]，返回 1
+     * recentCounter.ping(100);   // requests = [1, 100]，范围是 [-2900,100]，返回 2
+     * recentCounter.ping(3001);  // requests = [1, 100, 3001]，范围是 [1,3001]，返回 3
+     * recentCounter.ping(3002);  // requests = [1, 100, 3001, 3002]，范围是 [2,3002]，返回 3
+     *
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode-cn.com/problems/number-of-recent-calls
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     */
+
+    /**
+     * 225. 用队列实现栈
+     */
+
 
     public static class Node {
         public int value;
@@ -79,7 +285,7 @@ public class LeetCode {
      * <p>
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode-cn.com/problems/boats-to-save-people
-     *
+     * <p>
      * [1,2,2,3,4,5] limit = 5;
      * 解法：
      * 数组有序，相撞指针
@@ -231,28 +437,4 @@ public class LeetCode {
         return false;
     }
 
-    /**
-     * 485.给定一个二进制数组， 计算其中最大连续 1 的个数。
-     * <p>
-     * 输入：[1,1,0,1,1,1]
-     * 输出：3
-     * 解释：开头的两位和最后的三位都是连续 1 ，所以最大连续 1 的个数是 3.
-     */
-    public static int findMaxConsecutiveOnes(int[] nums) {
-        if (nums == null || nums.length == 0)
-            return 0;
-        int res = 0;
-        nums[0] = nums[0] == 0 ? 0 : 1;
-        res = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] == 1) {
-                nums[i] = nums[i - 1] + 1;
-            } else {
-                nums[i] = 0;
-            }
-            res = Math.max(res, nums[i]);
-
-        }
-        return res;
-    }
 }
