@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by xty on 21-2-22.
@@ -157,7 +158,7 @@ public class LeetCode {
 
     public static int removeElement2(int[] nums, int val) {
         int l = 0;
-        int r = nums.length -1;
+        int r = nums.length - 1;
         while (l < r) {
             while (l < r && nums[l] != val)
                 l++;
@@ -199,9 +200,9 @@ public class LeetCode {
         }
     }
 
-    public static ListNode removeElements(ListNode head, int val) {
-
-    }
+//    public static ListNode removeElements(ListNode head, int val) {
+//
+//    }
 
     /**
      * 206. 反转链表
@@ -215,9 +216,9 @@ public class LeetCode {
      * https://leetcode-cn.com/problems/reverse-linked-list/
      */
 
-    public static ListNode reverseList(ListNode head) {
-
-    }
+//    public static ListNode reverseList(ListNode head) {
+//
+//    }
 
     /**
      * 933. 最近的请求次数
@@ -408,15 +409,84 @@ public class LeetCode {
      * 滑动窗口
      */
     /**
-     * 给定一个含有 n 个正整数的数组和一个正整数 target 。
+     * 209 给定一个含有 n 个正整数的数组和一个正整数 target 。
      * <p>
-     * 找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
+     * 找出该数组中满足其和 ≥ target 的长度最小的
+     * 连续子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，
+     * 并返回其长度。如果不存在符合条件的子数组，返回 0 。
      * <p>
-     * 来源：力扣（LeetCode）
+     * 输入：target = 7, nums = [2,3,1,2,4,3]
+     * 输出：2
+     * 解释：子数组 [4,3] 是该条件下的长度最小的子数组。
+     * <p>
      * 链接：https://leetcode-cn.com/problems/minimum-size-subarray-sum
      */
     public static int minSubArrayLen(int target, int[] nums) {
-        return -1;
+        if (nums == null || nums.length == 0) return 0;
+        int res = nums.length + 1;
+        int i = 0;
+        int j = 0;
+        int total = 0;
+        while (j < nums.length) {
+            total = total + nums[j];
+            j++;
+            while (total >= target) {
+                res = Math.min(res, j - i);
+                total = total - nums[i];
+                i++;
+            }
+        }
+        if (res == nums.length + 1) {
+            return 0;
+        } else {
+            return res;
+        }
+    }
+
+    /**
+     * 1456. 定长子串中元音的最大数目
+     * <p>
+     * 给你字符串 s 和整数 k 。
+     * <p>
+     * 请返回字符串 s 中长度为 k 的单个子字符串中可能包含的最大元音字母数。
+     * <p>
+     * 英文中的 元音字母 为（a, e, i, o, u）。
+     * <p>
+     * 输入：s = "abciiidef", k = 3
+     * 输出：3
+     * 解释：子字符串 "iii" 包含 3 个元音字母。
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode-cn.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     */
+
+    public static int maxVowels(String s, int k) {
+        HashSet<Character> hashSet = new HashSet<>();
+        hashSet.add('a');
+        hashSet.add('e');
+        hashSet.add('i');
+        hashSet.add('o');
+        hashSet.add('u');
+        int res = 0;
+        int count = 0;
+        for (int i = 0; i < k; i++) {
+            char temp = s.charAt(i);
+            if (hashSet.contains(temp)) {
+                count++;
+            }
+        }
+        res = Math.max(res, count);
+        for (int i = k; i < s.length(); i++) {
+            char out = s.charAt(i - k);
+            char in = s.charAt(i);
+            if (hashSet.contains(out))
+                count--;
+            if (hashSet.contains(in))
+                count++;
+            res = Math.max(res, count);
+        }
+        return res;
+
     }
 
     /**
