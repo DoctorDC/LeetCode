@@ -11,7 +11,7 @@ public class LabuLa {
     public static class ListNode {
         int val;
         ListNode next;
-
+        ListNode(){}
         ListNode(int x) {
             val = x;
         }
@@ -29,6 +29,19 @@ public class LabuLa {
         head.next.next = head;
         head.next = null;
         return last;
+    }
+
+    public ListNode reverseList(ListNode head) {
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        while(head != null || head.next !=null) {
+            ListNode next = head.next;
+            ListNode temp = dummy.next;
+            head.next = head.next.next;
+            dummy.next = next;
+            next.next = temp;
+        }
+        return dummy.next;
     }
 
     /**

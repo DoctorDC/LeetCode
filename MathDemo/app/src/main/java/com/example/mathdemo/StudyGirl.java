@@ -40,7 +40,7 @@ import java.util.HashSet;
  * 拓扑排序：207/210
  * 前缀树：208/720/692
  */
-public class LeetCode {
+public class StudyGirl {
 
     /**
      * 485.给定一个二进制数组， 计算其中最大连续 1 的个数。
@@ -215,6 +215,17 @@ public class LeetCode {
      * <p>
      * https://leetcode-cn.com/problems/reverse-linked-list/
      */
+
+    public static ListNode reverse(ListNode head) {
+        if (head.next == null) {
+            return head;
+        }
+        ListNode last = reverse(head.next);
+        head.next.next = head;
+        head.next = null;
+        return last;
+    }
+
 
 //    public static ListNode reverseList(ListNode head) {
 //

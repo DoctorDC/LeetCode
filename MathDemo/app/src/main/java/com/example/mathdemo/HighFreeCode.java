@@ -48,7 +48,7 @@ public class HighFreeCode {
 
 
     /**
-     * 10 两数相加
+     * 1 两数相加
      * <p>
      * % 个位 / 进位
      * 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
@@ -58,11 +58,11 @@ public class HighFreeCode {
      * 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
      * <p>
      * 链接：https://leetcode-cn.com/problems/add-two-numbers
-     *
+     * <p>
      * 1.先遍历l1 l2 共同部分 先确定个位置，然后十位
-     *
+     * <p>
      * 2.分别遍历 l1 l2 先确定个位置，然后十位
-     *
+     * <p>
      * 3.如果还有进位，给cur.next 返回result.next
      */
     public static class ListNode {
@@ -144,12 +144,45 @@ public class HighFreeCode {
         while (l2 != null) {
             total = l2.val + next;
             cur.next = new ListNode(total % 10);
-            next = total/10;
+            next = total / 10;
             l2 = l2.next;
             cur = cur.next;
         }
         if (next != 0) {
-           cur.next = new ListNode(next);
+            cur.next = new ListNode(next);
+        }
+        return result.next;
+    }
+
+    public static ListNode addTwoNumbers3(ListNode l1, ListNode l2) {
+        ListNode result = new ListNode();
+        ListNode cur = result;
+        int next = 0;// 进位
+        int total = 0;
+        while (l1 != null && l2 != null) {
+            total = l1.val + l2.val + next;
+            cur.next = new ListNode(total % 10);
+            next = total / 10;
+            l1 = l1.next;
+            l2 = l2.next;
+            cur = cur.next;
+        }
+        while (l1 != null) {
+            total = l1.val + next;
+            cur.next = new ListNode(total % 10);
+            next = total / 10;
+            l1 = l1.next;
+            cur = cur.next;
+        }
+        while (l2 != null) {
+            total = l2.val + next;
+            cur.next = new ListNode(total % 10);
+            next = total / 10;
+            l2 = l2.next;
+            cur = cur.next;
+        }
+        if (next != 0) {
+            cur.next = new ListNode(next);
         }
         return result.next;
     }

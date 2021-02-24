@@ -20,11 +20,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d("1234", "ss==" + Arrays.toString(ss));
 
         int[] aa = new int[]{1, 1, 0, 1, 1, 1, 1, 1, 0};
-        int sum = LeetCode.findMaxConsecutiveOnes2(aa);
+        int sum = StudyGirl.findMaxConsecutiveOnes2(aa);
         Log.d("1234", "aa==" + sum);
 
         int[] bb = new int[]{2,3,1,2,4,3};
-        int i = LeetCode.minSubArrayLen(7, bb);
+        int i = StudyGirl.minSubArrayLen(7, bb);
         Log.d(TAG, "onCreate: "+i);
 
         String dd = "abccd";
