@@ -31,6 +31,21 @@ public class HighFreeCode {
         return ans;
     }
 
+    public static int lengthOfLongestSubstring2(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int sum = 0;
+        for (int start = 0, end = 0; end < s.length(); end++) {
+            Character c = s.charAt(end);
+            if (map.containsKey(c)) {
+                start = Math.max(start, map.get(c));
+            }
+            sum = Math.max(sum, end - start + 1);
+            map.put(c, end + 1);
+
+        }
+        return sum;
+    }
+
 
     /**
      * 10 两数相加
@@ -43,6 +58,12 @@ public class HighFreeCode {
      * 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
      * <p>
      * 链接：https://leetcode-cn.com/problems/add-two-numbers
+     *
+     * 1.先遍历l1 l2 共同部分 先确定个位置，然后十位
+     *
+     * 2.分别遍历 l1 l2 先确定个位置，然后十位
+     *
+     * 3.如果还有进位，给cur.next 返回result.next
      */
     public static class ListNode {
         int val;
@@ -60,6 +81,7 @@ public class HighFreeCode {
             this.next = next;
         }
     }
+
     //迭代法
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         int total = 0;//相加的和
@@ -78,7 +100,7 @@ public class HighFreeCode {
         //然后分别遍历l1 l2
         while (l1 != null) {
             total = l1.val + next;
-            cur.next = new ListNode(total % 10);
+            cur.next = new ListNode(total % 10);//先确定个位置，然后十位
             next = total / 10;
             l1 = l1.next;
             cur = cur.next;
@@ -92,7 +114,42 @@ public class HighFreeCode {
 
         }
         if (next != 0) {
-            cur.next = new ListNode(next);
+            cur.next = new ListNode(next);//进位
+        }
+        return result.next;
+    }
+
+    public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        int next = 0;//进位
+        int total = 0;
+        ListNode result = new ListNode();
+        ListNode cur = result;
+        while (l1 != null && l2 != null) {
+            total = l1.val + l2.val + next;
+            cur.next = new ListNode(total % 10);//个位
+            next = total / 10;
+            l1 = l1.next;
+            l2 = l2.next;
+            cur = cur.next;
+        }
+
+        while (l1 != null) {
+            total = l1.val + next;
+            cur.next = new ListNode(total % 10);
+            next = total / 10;
+            l1 = l1.next;
+            cur = cur.next;
+        }
+
+        while (l2 != null) {
+            total = l2.val + next;
+            cur.next = new ListNode(total % 10);
+            next = total/10;
+            l2 = l2.next;
+            cur = cur.next;
+        }
+        if (next != 0) {
+           cur.next = new ListNode(next);
         }
         return result.next;
     }

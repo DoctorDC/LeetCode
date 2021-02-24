@@ -27,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
         int i = LeetCode.minSubArrayLen(7, bb);
         Log.d(TAG, "onCreate: "+i);
 
+        String dd = "abccd";
+        int pp = HighFreeCode.lengthOfLongestSubstring2(dd);
+        Log.d(TAG, "onCreate: pp=="+pp);
+
+
 
     }
 
