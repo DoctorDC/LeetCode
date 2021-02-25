@@ -226,11 +226,6 @@ public class StudyGirl {
         return last;
     }
 
-
-//    public static ListNode reverseList(ListNode head) {
-//
-//    }
-
     /**
      * 933. 最近的请求次数
      *
