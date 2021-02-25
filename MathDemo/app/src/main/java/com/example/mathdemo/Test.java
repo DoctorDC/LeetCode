@@ -53,7 +53,116 @@ public class Test {
         return res;
     }
 
+    /**
+     * 平衡二叉树
+     * 左右平衡，相减 <2
+     */
 
+    private class Node {
+        public int val;
+        public Node left;
+        public Node right;
+
+        Node(int val) {
+            this.val = val;
+        }
+    }
+
+    private boolean isBalanced(Node head) {
+        return process(head).isBalanced;
+    }
+
+    public class ReturnType {
+        int height;
+        public boolean isBalanced;
+
+        public ReturnType(int height, boolean isBalanced) {
+            this.height = height;
+            this.isBalanced = isBalanced;
+        }
+    }
+
+    private ReturnType process(Node x) {
+        if (x == null)
+            return new ReturnType(0, true);
+        ReturnType leftData = process(x.left);
+        ReturnType rightData = process(x.right);
+        int h = Math.max(leftData.height, rightData.height) + 1;
+        boolean b = leftData.isBalanced && rightData.isBalanced &&
+                (Math.abs(leftData.height - rightData.height) < 2);
+        return new ReturnType(h, b);
+    }
+
+    /**
+     * 搜索二叉树 isbst min max
+     * 它或者是一棵空树，或者是具有下列性质的二叉树：
+     * 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值
+     * 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值
+     */
+    public class ReturnSearchTree {
+        public boolean isBST;
+        public int min;
+        public int max;
+
+        public ReturnSearchTree(boolean isBST, int min, int max) {
+            this.isBST = isBST;
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    public ReturnSearchTree processSearch(Node x) {
+        if (x == null) return null;
+        ReturnSearchTree leftData = processSearch(x.left);
+        ReturnSearchTree rightData = processSearch(x.right);
+        boolean isBst = true;
+        int min = x.val;
+        int max = x.val;
+
+        if (leftData != null) {
+            min = Math.min(min, leftData.min);
+            max = Math.max(max, leftData.max);
+        }
+        if (rightData != null) {
+            min = Math.min(min, rightData.min);
+            max = Math.max(max, rightData.max);
+        }
+
+        if (leftData != null && (!leftData.isBST || leftData.max >= x.val)) {
+            isBst = false;
+        }
+        if (rightData != null && (!rightData.isBST || x.val >= rightData.min)) {
+            isBst = false;
+        }
+
+        return new ReturnSearchTree(isBst, min, max);
+    }
+
+    /**
+     * 满二叉树 树高度，节点个数
+     * 一个二叉树，如果每一个层的结点数都达到最大值，则这个二叉树就是满二叉树
+     * 也就是说，如果一个二叉树的层数为K，且结点总数是(2^k) -1 ，则它就是满二叉树。
+     */
+    private class ReturnFullTree {
+        public int height;
+        public int nodes;
+
+        public ReturnFullTree(int height, int nodes) {
+            this.height = height;
+            this.nodes = nodes;
+        }
+    }
+
+    public ReturnFullTree processFull(Node x) {
+        if (x == null)
+            return new ReturnFullTree(0, 0);
+        ReturnFullTree left = processFull(x.left);
+        ReturnFullTree right = processFull(x.right);
+        int treeH = Math.max(left.height, right.height) + 1;
+        int node = left.nodes + right.nodes + 1;
+        return new ReturnFullTree(treeH, node);
+
+    }
 
 
 }
