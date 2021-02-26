@@ -151,9 +151,7 @@ public class FuncSort {
         int k = 0;
         while (i <= mid && j < a.length) {
             if (a[i] <= a[j]) {
-                temp[k] = a[i];
-                k++;
-                i++;
+                temp[k++] = a[i++];
             } else {
                 temp[k++] = a[j++];
             }
@@ -171,13 +169,9 @@ public class FuncSort {
         int k = 0;
         while (i <= mid && j < a.length) {
             if (a[i] < a[j]) {
-                temp[k] = a[i];
-                i++;
-                k++;
+                temp[k++] = a[i++];
             } else {
-                temp[k] = a[j];
-                j++;
-                k++;
+                temp[k++] = a[j++];
             }
         }
         while (i<=mid) temp[k++]=a[i++];

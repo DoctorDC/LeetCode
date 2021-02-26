@@ -49,23 +49,6 @@ public class BriTree {
         }
     }
 
-    public static void preOrderUnRecur2(TreeNode head) {
-        if (head != null) {
-            Stack<TreeNode> stack = new Stack<>();
-            stack.add(head);
-            while (!stack.isEmpty()) {
-                head = stack.pop();
-                System.out.print(head.val + " ");
-                if (head.right != null) {
-                    stack.push(head.right);
-                }
-                if (head.left != null) {
-                    stack.push(head.left);
-                }
-            }
-        }
-    }
-
     /**
      * 后序遍历
      * 两个栈
@@ -107,22 +90,6 @@ public class BriTree {
             while (!stack.isEmpty() || head != null) {
                 if (head != null) {
                     stack.push(head);
-                    head = head.left;
-                } else {
-                    head = stack.pop();
-                    System.out.print(head.val + " ");
-                    head = head.right;
-                }
-            }
-        }
-    }
-
-    public static void inOrderUnRecur2(TreeNode head) {
-        if (head != null) {
-            Stack<TreeNode> stack = new Stack<>();
-            while (!stack.isEmpty() || head != null) {
-                if (head != null) {
-                    stack.push(head.left);
                     head = head.left;
                 } else {
                     head = stack.pop();
@@ -394,8 +361,6 @@ public class BriTree {
     }
 
     /**
-     * 938 leetcode
-     * 二叉搜索树的范围和
      * bfs 使用queue
      */
     public static void levelOrder(TreeNode root) {
@@ -418,6 +383,59 @@ public class BriTree {
     }
 
     /**
-     * 107
+     * 938 leetcode
+     * 二叉搜索树的范围和
+     * bfs 使用queue
      */
+
+    public static int rangeSumBST(TreeNode root, int low, int high) {
+        if (root == null) return 0;
+        int res = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < queue.size(); i++) {
+                TreeNode cur = queue.poll();
+                if (cur.val <= high && cur.val >= low) {
+                    res = res + cur.val;
+                }
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
+            }
+        }
+        return res;
+    }
+
+    /**
+     * 200 岛屿数量
+     * dfs  同化0 遍历数组，当水域为1时，将连着的1变成0,一直
+     */
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0) return 0;
+        int result = 0;
+        int row = grid.length;
+        int col = grid[0].length;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (grid[i][j] == '1') {
+                    result++;
+                    dfs(grid, i, j, row, col);
+                }
+            }
+        }
+        return result;
+    }
+
+    private void dfs(char[][] grid, int x, int y, int row, int col) {
+        if (x < 0 || y < 0 || x >= row || y >= col || grid[x][y] == '0') return;
+        grid[x][y] = '0';
+        dfs(grid, x - 1, y, row, col);
+        dfs(grid, x + 1, y, row, col);
+        dfs(grid, x, y - 1, row, col);
+        dfs(grid, x, y + 1, row, col);
+    }
 }
