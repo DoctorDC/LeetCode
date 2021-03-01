@@ -49,7 +49,7 @@ public class FuncSort {
      * 然后和j比较
      */
 
-    public static void selectionSort2(int[] a) {
+    public static void selectionSort(int[] a) {
         if (a != null || a.length < 2) return;
         for (int i = 0; i < a.length; i++) {
             int minPos = i;
@@ -76,18 +76,6 @@ public class FuncSort {
                     swap(a, j, j + 1);
                 }
             }
-        }
-    }
-
-    public static void bubbleSort2(int[] a) {
-        if (a != null || a.length < 2) return;
-        for (int i = a.length - 1; i > 0; i--) {
-            for (int j = 0; j < i; j++) {
-                if (a[j] > a[j + 1]) {
-                    swap2(a, i, j);
-                }
-            }
-
         }
     }
 
@@ -162,24 +150,12 @@ public class FuncSort {
     }
 
     public static void mergeSort2(int[] a) {
-        int mid = a.length / 2;
-        int temp[] = new int[a.length];
-        int i = 0;
-        int j = mid + 1;
-        int k = 0;
-        while (i <= mid && j < a.length) {
-            if (a[i] < a[j]) {
-                temp[k++] = a[i++];
-            } else {
-                temp[k++] = a[j++];
-            }
-        }
-        while (i<=mid) temp[k++]=a[i++];
-        while (j<a.length) temp[k++]=a[j++];
     }
 
     /**
      * 快速排序
+     *
+     * 327154
      */
 
     public static void quickSort(int[] a, int left, int right) {
@@ -187,14 +163,13 @@ public class FuncSort {
         int i = left;
         int j = right;
         int index = a[left];
-        int temp = 0;
-        while (i < j) {
+        while (i != j) {
             while (i < j && a[j] >= index)
                 j--;
             while (i < j && a[i] <= index)
                 i++;
             if (a[i] > a[j]) {
-                temp = a[i];
+                int temp = a[i];
                 a[i] = a[j];
                 a[j] = temp;
             }

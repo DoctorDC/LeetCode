@@ -1,5 +1,7 @@
 package com.example.mathdemo;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -101,6 +103,28 @@ public class BriTree {
     }
 
     /**
+     * 层序遍历
+     */
+
+    public static void bfs(TreeNode head) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(head);
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < queue.size(); i++) {
+                TreeNode cur = queue.poll();
+                //print cur
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
+            }
+        }
+
+    }
+
+    /**
      * 二叉树宽度(队列)
      * 加入队列
      * 弹出打印
@@ -139,43 +163,12 @@ public class BriTree {
         }
     }
 
-    public static void w2(TreeNode head) {
-        if (head == null) return;
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(head);
-        HashMap<TreeNode, Integer> map = new HashMap<>();
-        map.put(head, 1);
-        int curLevel = 1;
-        int curLevelNodes = 0;
-        int max = -1;
-        while (!queue.isEmpty()) {
-            TreeNode cur = queue.poll();
-            //判断当前节点层
-            int tmpLevel = map.get(cur);
-            if (curLevel == tmpLevel) {
-                curLevelNodes++;
-            } else {
-                max = Math.max(max, curLevelNodes);
-                curLevel++;
-                curLevelNodes = 1;
-            }
-            if (cur.left != null) {
-                map.put(cur.left, tmpLevel + 1);
-                queue.add(cur.left);
-            }
-            if (cur.right != null) {
-                map.put(cur.right, tmpLevel + 1);
-                queue.add(cur.right);
-            }
-        }
-    }
-
     /**
      * 搜索二叉树 ：左中右 小到大dp
      * 完全二叉树
      * 满二叉树 2^l-1 dp
      * 平衡二叉树：avl dp
-     * 它是一 棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。
+     * 它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。
      */
 
     public static int preValue = Integer.MIN_VALUE;
@@ -362,6 +355,7 @@ public class BriTree {
 
     /**
      * bfs 使用queue
+     * 层序遍历
      */
     public static void levelOrder(TreeNode root) {
         if (root == null) return;
@@ -383,8 +377,7 @@ public class BriTree {
     }
 
     /**
-     * 938 leetcode
-     * 二叉搜索树的范围和
+     * 938 leetcode  二叉搜索树的范围和
      * bfs 使用queue
      */
 

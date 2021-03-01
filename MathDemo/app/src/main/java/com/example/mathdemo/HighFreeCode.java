@@ -187,4 +187,44 @@ public class HighFreeCode {
         return result.next;
     }
 
+    /**
+     * 832. 翻转图像
+     * 给定一个二进制矩阵 A，我们想先水平翻转图像，然后反转图像并返回结果。
+     * <p>
+     * 水平翻转图片就是将图片的每一行都进行翻转，即逆序。例如，水平翻转 [1, 1, 0] 的结果是 [0, 1, 1]。
+     * <p>
+     * 反转图片的意思是图片中的 0 全部被 1 替换， 1 全部被 0 替换。例如，反转 [0, 1, 1] 的结果是 [1, 0, 0]。
+     * <p>
+     * <p>
+     * <p>
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode-cn.com/problems/flipping-an-image
+     *
+     * 使用双指针
+     * if left==right
+     *      a[l] and a[r] ^= 1
+     *
+     *    还有中间那个需要 ^=1
+     *
+     */
+
+    public int[][] flipAndInvertImage(int[][] image) {
+        int n = image.length;
+        for (int i = 0; i < n; i++) {
+            int left = 0;
+            int right = n - 1;
+            while (left < right) {
+                if (image[i][left] == image[i][right]) {
+                    image[i][left] ^= 1;
+                    image[i][right] ^= 1;
+                }
+                left++;
+                right--;
+            }
+            if (left == right)
+                image[i][left] ^= 1;
+        }
+        return image;
+    }
+
 }
