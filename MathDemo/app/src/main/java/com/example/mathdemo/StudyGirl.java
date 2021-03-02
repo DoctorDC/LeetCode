@@ -513,4 +513,40 @@ public class StudyGirl {
         return false;
     }
 
+    /**
+     * 322 硬币
+     * <p>
+     * 1 2 5 7 10   t=14
+     */
+    public static int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) { //从1元开始
+            for (int j = 0; j < coins.length; j++) {
+                if (coins[j] <= i) {
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+                }
+            }
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+
+
+    public static int coinChange2(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) { //从1元开始
+            for (int j = 0; j < coins.length; j++) {
+                if (coins[j] <= i && dp[i-coins[j]] != -1) {
+                    if (dp[i] == -1 || dp[i] > dp[i-coins[j]]+1) {
+                        dp[i] = dp[i-coins[j]]+1;
+                    }
+                }
+            }
+        }
+        return dp[amount];
+    }
+
 }
