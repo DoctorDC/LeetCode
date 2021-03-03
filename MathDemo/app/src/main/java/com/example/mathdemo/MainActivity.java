@@ -15,21 +15,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        int[] ss = new int[]{3, 1, 4, 2, 4};
-        test(ss);
+        int[] ss = new int[]{3, 1, 4, 2, 5};
+        ZuoCode.process2(ss,0,ss.length-1);
         Log.d("1234", "ss==" + Arrays.toString(ss));
 
-        int[] aa = new int[]{1, 1, 0, 1, 1, 1, 1, 1, 0};
-        int sum = StudyGirl.findMaxConsecutiveOnes2(aa);
-        Log.d("1234", "aa==" + sum);
-
-        int[] bb = new int[]{2,3,1,2,4,3};
-        int i = StudyGirl.minSubArrayLen(7, bb);
-        Log.d(TAG, "onCreate: "+i);
-
-        String dd = "abccd";
-        int pp = HighFreeCode.lengthOfLongestSubstring2(dd);
-        Log.d(TAG, "onCreate: pp=="+pp);
+//        int[] aa = new int[]{1, 1, 0, 1, 1, 1, 1, 1, 0};
+//        int sum = StudyGirl.findMaxConsecutiveOnes2(aa);
+//        Log.d("1234", "aa==" + sum);
+//
+//        int[] bb = new int[]{2,3,1,2,4,3};
+//        int i = StudyGirl.minSubArrayLen(7, bb);
+//        Log.d(TAG, "onCreate: "+i);
+//
+//        String dd = "abccd";
+//        int pp = HighFreeCode.lengthOfLongestSubstring2(dd);
+//        Log.d(TAG, "onCreate: pp=="+pp);
 
 
 

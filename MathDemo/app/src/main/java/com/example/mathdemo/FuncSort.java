@@ -149,12 +149,10 @@ public class FuncSort {
 
     }
 
-    public static void mergeSort2(int[] a) {
-    }
 
     /**
      * 快速排序
-     *
+     * <p>
      * 327154
      */
 
@@ -178,6 +176,35 @@ public class FuncSort {
         }
         quickSort(a, left, i - 1);
         quickSort(a, i + 1, right);
+    }
+
+
+    /**
+     * 快速排序 317254
+     */
+    private void quickSort2(int a[], int left, int right) {
+        if (left > right) return;//终止条件
+        int i, j, index, t;
+        i = left;
+        j = right;
+        index = a[left];
+        while (i != j) {
+            while (i < j && a[j] >= index) {
+                j--;
+            }
+            while (i < j && a[i] <= index) { //这里的a[i]小于等于index，等于很重要边界值
+                i++;
+            }
+            if (i < j) {
+                t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+        }
+        a[left] = a[i];//a[left] 第一次指向第一个a[0]
+        a[i] = index;
+        quickSort2(a, left, i - 1);
+        quickSort2(a, i + 1, right);
     }
 
 
