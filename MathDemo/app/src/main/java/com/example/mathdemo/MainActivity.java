@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 //        String dd = "abccd";
 //        int pp = HighFreeCode.lengthOfLongestSubstring2(dd);
 //        Log.d(TAG, "onCreate: pp=="+pp);
-
+        Shuffler.test();
 
 
     }
