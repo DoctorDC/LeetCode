@@ -6,8 +6,9 @@ public class Code02_ContainAllCharExactly {
 
     //暴力
     public static int containExactly1(String s, String a) {
-        if (s == null || a == null || s.length() < a.length())
+        if (s == null || a == null || s.length() < a.length()) {
             return -1;
+        }
         char[] aim = a.toCharArray();
         Arrays.sort(aim);
         String aimSort = String.valueOf(aim);
@@ -16,23 +17,25 @@ public class Code02_ContainAllCharExactly {
                 char[] cur = s.substring(L, R + 1).toCharArray();
                 Arrays.sort(cur);
                 String curSort = String.valueOf(cur);
-                if (curSort.equals(aimSort))
+                if (curSort.equals(aimSort)) {
                     return L;
+                }
             }
-
         }
         return -1;
     }
 
 
     public static int containExactly2(String s, String a) {
-        if (s == null || a == null || s.length() < a.length())
+        if (s == null || a == null || s.length() < a.length()) {
             return -1;
+        }
         char[] str = s.toCharArray();
         char[] aim = a.toCharArray();
-        for (int i = 0; i <= str.length - aim.length; i++) {
-            if (isCountEqual(str, i, aim))
-                return i;
+        for (int L = 0; L <= str.length - aim.length; L++) {
+            if (isCountEqual(str, L, aim)) {
+                return L;
+            }
         }
         return -1;
     }
@@ -92,7 +95,7 @@ public class Code02_ContainAllCharExactly {
                 inValidTimes++;
         }
         if (inValidTimes == 0)
-            return R- M;//第一个窗口就是
+            return R - M;//第一个窗口就是
         //R==M
         //[0..M-1]
         for (; R < str.length; R++) {
@@ -106,5 +109,34 @@ public class Code02_ContainAllCharExactly {
                 inValidTimes--;
         }
         return inValidTimes == 0 ? R - M : -1;//最后一个窗口
+    }
+
+    public static int test(String s, String a) {
+        if (s == null || a == null || s.length() < a.length())
+            return -1;
+        char[] aim = a.toCharArray();
+        int count[] = new int[256];
+        for (int i = 0; i < aim.length; i++) {
+            count[aim[i]]++;
+        }
+        int valid = 0;
+        char[] str = s.toCharArray();
+        int R = 0;
+        int M = aim.length;
+        for (; R < M; R++) {
+            if (count[str[R]]-- <= 0)
+                valid++;
+        }
+        //R==M
+        for (; R < str.length; R++) {
+            if (valid == 0) return R - M;
+            if (count[str[R]]-- <= 0)
+                valid++;
+            if (count[str[R - M]]++ < 0)
+                valid--;
+        }
+
+        return valid == 0 ? R - M : -1;
+
     }
 }

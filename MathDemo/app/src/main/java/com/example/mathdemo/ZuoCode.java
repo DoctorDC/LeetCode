@@ -89,10 +89,9 @@ public class ZuoCode {
             help[i++] = arr[p2++];
         }
 
-        Log.d("1234", "help==" + Arrays.toString(help));
         for (i = 0; i < help.length; i++) {
-            Log.d("1234", "i==" + i + ",L==" + L + ",help==" + help[i]);
-            Log.d("1234", "########");
+//            Log.d("1234", "i==" + i + ",L==" + L + ",help==" + help[i]);
+//            Log.d("1234", "########");
             arr[L + i] = help[i];
         }
 
