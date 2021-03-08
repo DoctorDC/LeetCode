@@ -210,4 +210,35 @@ public class ZuoCode {
         return null;
     }
 
+    /**
+     * 链表逆序
+     */
+
+
+    /**
+     * 盛水问题
+     */
+
+    public static int water(int[] arr) {
+        if (arr == null || arr.length < 2)
+            return 0;
+        int N = arr.length;
+        int L = 1;
+        int R = N - 2;
+        int leftMax = arr[0];
+        int rightMax = arr[N - 1];
+        int res = 0;
+        while (L <= R) {
+            if (leftMax <= rightMax) {
+                res += Math.max(0, leftMax - arr[L]);
+                leftMax = Math.max(leftMax, arr[L++]);
+            } else {
+                res += Math.max(0, rightMax - arr[R]);
+                rightMax = Math.max(rightMax, arr[R--]);
+            }
+        }
+        return res;
+    }
+
+
 }
