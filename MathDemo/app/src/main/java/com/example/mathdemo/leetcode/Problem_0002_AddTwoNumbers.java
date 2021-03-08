@@ -35,7 +35,7 @@ public class Problem_0002_AddTwoNumbers {
             node = new ListNode(1);
             node.next = pre;
         }
-        return
+        return reverseList(node);
     }
 
     public static ListNode reverseList(ListNode head) {
