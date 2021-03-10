@@ -281,7 +281,7 @@ public class BriTree {
     }
 
     /**
-     * 二叉树套路
+     * 二叉树套路 树的高度 和 节点个数
      * <p>
      * 平衡二叉树
      * 左右树平衡，差小于2
@@ -322,6 +322,13 @@ public class BriTree {
      * <p>
      * o1 和 o2一定属于head为头的树
      * 返回o1 o2 的最低公共祖先
+     *
+     * 第一个汇聚的点
+     * 遍历过程中，生成由下到上的链，
+     *
+     * 生成所有父节点的表map
+     * set 记录 o1
+     * 然后让遍历o2
      */
 
     public static TreeNode lca(TreeNode head, TreeNode o1, TreeNode o2) {
@@ -335,14 +342,11 @@ public class BriTree {
             cur = fatherMap.get(cur);
         }
         set1.add(head);
-        TreeNode cur2 = o2;
-        while (cur2 != fatherMap.get(cur2)) {
-            if (set1.contains(cur2)) {
-                return cur2;
-            }
-
+        cur = o2;
+        while (!set1.contains(cur)) {
+            cur = fatherMap.get(cur);
         }
-        return null;
+        return cur;
     }
 
     public static void process(TreeNode head, HashMap<TreeNode, TreeNode> fatherMap) {

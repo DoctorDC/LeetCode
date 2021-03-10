@@ -189,5 +189,24 @@ public class Test {
         dfs(grid, x, y + 1, row, col);
     }
 
+    private int water(int[] a) {
+        int n = a.length;
+        int left = 0;
+        int right = n - 1;
+        int leftMax = a[0];
+        int rightMax = a[n - 1];
+        int sum = 0;
+        while (left <= right) {
+            if (leftMax <= rightMax) {
+                sum += Math.max(0, leftMax - a[left]);
+                leftMax = Math.max(leftMax, a[left++]);
+            } else {
+                sum += Math.max(0, rightMax - a[right]);
+                rightMax = Math.max(rightMax, a[right--]);
+            }
+        }
+        return sum;
+    }
+
 
 }
