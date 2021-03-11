@@ -4,6 +4,14 @@ import java.util.Arrays;
 
 public class Code02_ContainAllCharExactly {
 
+    /**
+     * 给定长度m的字符串aim，以及一个长度为n的字符串str，
+     * 问能否在str中找到一个长度为m的连续字串
+     * @param s
+     * @param a
+     * @return
+     */
+
     //暴力
     public static int containExactly1(String s, String a) {
         if (s == null || a == null || s.length() < a.length()) {

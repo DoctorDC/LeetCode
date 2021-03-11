@@ -31,22 +31,6 @@ public class HighFreeCode {
         return ans;
     }
 
-    public static int lengthOfLongestSubstring2(String s) {
-        HashMap<Character, Integer> map = new HashMap<>();
-        int sum = 0;
-        for (int start = 0, end = 0; end < s.length(); end++) {
-            Character c = s.charAt(end);
-            if (map.containsKey(c)) {
-                start = Math.max(start, map.get(c));
-            }
-            sum = Math.max(sum, end - start + 1);
-            map.put(c, end + 1);
-
-        }
-        return sum;
-    }
-
-
     /**
      * 1 两数相加
      * <p>

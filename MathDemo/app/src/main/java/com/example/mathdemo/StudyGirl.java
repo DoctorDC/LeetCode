@@ -5,6 +5,8 @@ import android.util.Log;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by xty on 21-2-22.
@@ -549,4 +551,60 @@ public class StudyGirl {
         return dp[amount];
     }
 
+
+    /**
+     * 938 leetcode  二叉搜索树的范围和
+     * bfs 使用queue
+     */
+
+    public static int rangeSumBST(BriTree.TreeNode root, int low, int high) {
+        if (root == null) return 0;
+        int res = 0;
+        Queue<BriTree.TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < queue.size(); i++) {
+                BriTree.TreeNode cur = queue.poll();
+                if (cur.val <= high && cur.val >= low) {
+                    res = res + cur.val;
+                }
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
+            }
+        }
+        return res;
+    }
+
+    /**
+     * 200 岛屿数量
+     * dfs  同化0 遍历数组，当水域为1时，将连着的1变成0,一直
+     */
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0) return 0;
+        int result = 0;
+        int row = grid.length;
+        int col = grid[0].length;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (grid[i][j] == '1') {
+                    result++;
+                    dfs(grid, i, j, row, col);
+                }
+            }
+        }
+        return result;
+    }
+
+    private void dfs(char[][] grid, int x, int y, int row, int col) {
+        if (x < 0 || y < 0 || x >= row || y >= col || grid[x][y] == '0') return;
+        grid[x][y] = '0';
+        dfs(grid, x - 1, y, row, col);
+        dfs(grid, x + 1, y, row, col);
+        dfs(grid, x, y - 1, row, col);
+        dfs(grid, x, y + 1, row, col);
+    }
 }

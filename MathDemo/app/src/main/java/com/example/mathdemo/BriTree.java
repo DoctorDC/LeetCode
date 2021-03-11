@@ -322,10 +322,10 @@ public class BriTree {
      * <p>
      * o1 和 o2一定属于head为头的树
      * 返回o1 o2 的最低公共祖先
-     *
+     * <p>
      * 第一个汇聚的点
      * 遍历过程中，生成由下到上的链，
-     *
+     * <p>
      * 生成所有父节点的表map
      * set 记录 o1
      * 然后让遍历o2
@@ -357,6 +357,22 @@ public class BriTree {
         process(head.right, fatherMap);
     }
 
+
+    /**
+     * 简单方法
+     */
+
+    public static TreeNode lowestAncestor(TreeNode head, TreeNode o1, TreeNode o2) {
+        if (head == null || head == o1 || head == o2)
+            return head;
+        TreeNode left = lowestAncestor(head.left, o1, o2);
+        TreeNode right = lowestAncestor(head.right, o1, o2);
+        if (left != null && right != null)
+            return head;
+        return left != null ? left : right;
+
+    }
+
     /**
      * bfs 使用queue
      * 层序遍历
@@ -381,58 +397,20 @@ public class BriTree {
     }
 
     /**
-     * 938 leetcode  二叉搜索树的范围和
-     * bfs 使用queue
+     * 折纸
+     *
+     * 左树 根节点 ao
+     * 右树 跟 tu
+     * 1 ao
+     *
+     * i 那一层
+     * down true ao  false tu
      */
 
-    public static int rangeSumBST(TreeNode root, int low, int high) {
-        if (root == null) return 0;
-        int res = 0;
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-        while (!queue.isEmpty()) {
-            for (int i = 0; i < queue.size(); i++) {
-                TreeNode cur = queue.poll();
-                if (cur.val <= high && cur.val >= low) {
-                    res = res + cur.val;
-                }
-                if (cur.left != null) {
-                    queue.add(cur.left);
-                }
-                if (cur.right != null) {
-                    queue.add(cur.right);
-                }
-            }
-        }
-        return res;
-    }
-
-    /**
-     * 200 岛屿数量
-     * dfs  同化0 遍历数组，当水域为1时，将连着的1变成0,一直
-     */
-    public int numIslands(char[][] grid) {
-        if (grid == null || grid.length == 0) return 0;
-        int result = 0;
-        int row = grid.length;
-        int col = grid[0].length;
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                if (grid[i][j] == '1') {
-                    result++;
-                    dfs(grid, i, j, row, col);
-                }
-            }
-        }
-        return result;
-    }
-
-    private void dfs(char[][] grid, int x, int y, int row, int col) {
-        if (x < 0 || y < 0 || x >= row || y >= col || grid[x][y] == '0') return;
-        grid[x][y] = '0';
-        dfs(grid, x - 1, y, row, col);
-        dfs(grid, x + 1, y, row, col);
-        dfs(grid, x, y - 1, row, col);
-        dfs(grid, x, y + 1, row, col);
+    public static void process(int i, int N, boolean down) {
+        if (i > N) return;
+        process(i + 1, N, true);
+        System.out.printf(down ? "ao" : "tu");
+        process(i + 1, N, false);
     }
 }

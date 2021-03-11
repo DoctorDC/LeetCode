@@ -4,6 +4,9 @@ public class Code01_PosArrayToBST {
 
     /**
      * 给一个后续遍历的数组，搜索二叉树
+     *
+     * 已知一个搜索二叉树后序遍历的数组posarr
+     * 根据posarr 重建整棵树
      */
     public static class Node {
         public int value;
