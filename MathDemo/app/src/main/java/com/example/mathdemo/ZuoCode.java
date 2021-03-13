@@ -103,6 +103,10 @@ public class ZuoCode {
      * 1.先让两个链表遍历，
      * 2.长链表，走到和短链表一样
      * 3.遍历比较
+     *
+     * 快指针和慢指针相遇后，
+     * 快指针回到头部
+     * 再次相遇就是入环节点
      */
     //找到链表第一个入环节点，如果无环，返回null
     public static Node getLoopNode(Node head) {

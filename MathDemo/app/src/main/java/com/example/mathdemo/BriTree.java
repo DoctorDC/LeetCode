@@ -166,11 +166,12 @@ public class BriTree {
     /**
      * 搜索二叉树 ：左中右 小到大dp
      * 完全二叉树
-     * 满二叉树 2^l-1 dp
+     * 满二叉树 n = 2^l-1 dp  n节点个数 l最大深度
      * 平衡二叉树：avl dp
      * 它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。
      */
-
+    //判断搜索二叉树
+    //左树是否搜索二叉树
     public static int preValue = Integer.MIN_VALUE;
 
     // 打印时机变成比较时机
@@ -185,7 +186,6 @@ public class BriTree {
             preValue = head.val;
         }
         return isBST(head.right);
-
     }
 
     /**
@@ -194,7 +194,7 @@ public class BriTree {
      * 宽度
      * 队列，两个lr
      * 1.任意一个节点，有右无左 false
-     * 2.遇到第一个左右两个孩子不全，后面节点皆叶 才是完全二叉树，否则不是。
+     * 2.1)不违规 遇到第一个左右两个孩子不全，后面节点皆叶 才是完全二叉树，否则不是。
      */
     public static boolean isCBT(TreeNode head) {
         if (head == null) return true;
@@ -207,10 +207,13 @@ public class BriTree {
             head = queue.poll();
             l = head.left;
             r = head.right;
-            if (leaf && (l != null || r != null) ||
-                    (l == null && r != null)) {
+            // 如果遇到了不双全的节点之后，又发现当前节点居然有孩子
+            if (leaf && (l != null || r != null) //条件二
+                    ||
+                    (l == null && r != null)) {//条件一，有右无左
                 return false;
             }
+            //
             if (l != null) {
                 queue.add(l);
             }
@@ -224,70 +227,21 @@ public class BriTree {
         return true;
     }
 
-    public static boolean isCBT2(TreeNode head) {
-        if (head == null) return true;
-        LinkedList<TreeNode> queue = new LinkedList<>();
-        queue.add(head);
-        TreeNode l = null;
-        TreeNode r = null;
-        boolean leaf = false;
-        while (!queue.isEmpty()) {
-            TreeNode cur = queue.poll();
-            l = cur.left;
-            r = cur.right;
-            if (leaf && (l != null || r != null) ||
-                    (l == null && r != null)) {
-                return false;
-            }
-            if (l != null) {
-                queue.add(l);
-            }
-            if (r != null) {
-                queue.add(r);
-            }
-            if (l == null || r == null) {
-                leaf = true;
-            }
-        }
-        return true;
-    }
-
-    public static boolean isCBT3(TreeNode head) {
-        if (head == null) return true;
-        LinkedList<TreeNode> queue = new LinkedList<>();
-        TreeNode l = null;
-        TreeNode r = null;
-        queue.add(head);
-        boolean leaf = false;
-        while (!queue.isEmpty()) {
-            TreeNode cur = queue.poll();
-            l = cur.left;
-            r = cur.right;
-            if (leaf && (l != null || r != null) ||
-                    (l == null && r != null)) {
-                return false;
-            }
-            if (l != null) {
-                queue.add(l);
-            }
-            if (r != null) {
-                queue.add(r);
-            }
-            if (l == null || r == null) {
-                leaf = true;
-            }
-        }
-        return true;
-    }
-
     /**
      * 二叉树套路 树的高度 和 节点个数
+     *
+     * 从左，右树要信息
      * <p>
+     *     例子：
      * 平衡二叉树
-     * 左右树平衡，差小于2
+     * 1.左树平衡，
+     * 2.右树平衡
+     * 3.左-右 <=1
      * <p>
      * 树型dp 左右
      */
+
+    //判断平衡二叉树
     public static boolean isBalanced(TreeNode head) {
         return process(head).isBalanced;
     }
@@ -303,19 +257,30 @@ public class BriTree {
         }
     }
 
-    public static ReturnType process(TreeNode x) {
-        if (x == null) { //base
+    public static ReturnType process(TreeNode x) { //递归
+        if (x == null) { //base case
             return new ReturnType(true, 0);
         }
-        ReturnType leftData = process(x.left);
-        ReturnType rightData = process(x.right);
-        int height = Math.max(leftData.height, rightData.height) + 1;
+        ReturnType leftData = process(x.left);//左树
+        ReturnType rightData = process(x.right);//右树
+        int height = Math.max(leftData.height, rightData.height) + 1;//树的高度
         boolean isBalanced = leftData.isBalanced && rightData.isBalanced
                 && Math.abs(leftData.height - rightData.height) < 2;
         return new ReturnType(isBalanced, height);
 
     }
 
+    /**
+     * 搜索二叉树套路
+     * 左 搜索二叉树 ？
+     * 右 搜索二叉树 ?
+     * 左 max 小于 x
+     * 右 min 大于 x
+     *
+     * 返回值结构 isSearchTree min max
+     *
+     * 具体代码看TestBST
+     */
 
     /**
      * 给的两个二叉树节点node1 node2,找出他们的最低公共祖先节点
