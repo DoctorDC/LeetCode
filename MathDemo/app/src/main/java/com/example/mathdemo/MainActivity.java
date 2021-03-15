@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         int right = aa.length-1;
         int mid = left + ((right - left) >> 1);
 
-        int t = aa[mid];
-        Log.d("1234","mid=="+mid);
-        Log.d("1234","t=="+t);
+//        int t = aa[mid];
+//        Log.d("1234","mid=="+mid);
+//        Log.d("1234","t=="+t);
 //        int[] aa = new int[]{1, 1, 0, 1, 1, 1, 1, 1, 0};
 //        int sum = StudyGirl.findMaxConsecutiveOnes2(aa);
 //        Log.d("1234", "aa==" + sum);
@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
 //        String dd = "abccd";
 //        int pp = HighFreeCode.lengthOfLongestSubstring2(dd);
 //        Log.d(TAG, "onCreate: pp=="+pp);
-        Shuffler.test();
-
     }
 
     //冒泡排序

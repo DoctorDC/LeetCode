@@ -146,8 +146,7 @@ public class ZuoCode {
         }
         if (cur1 != cur2)
             return null;
-        //n =链表1 -
-        // 链表2
+        //n =链表1 - 链表2
         cur1 = n > 0 ? head1 : head2;//cur1 长链表
         cur2 = cur1 == head1 ? head2 : head1;
         n = Math.abs(n);
@@ -216,6 +215,46 @@ public class ZuoCode {
     /**
      * 链表逆序
      */
+
+    public static Node reverse(Node head) {
+        if (head.next == null) return head;
+        Node last = reverse(head.next);
+        head.next.next = head.next;
+        head.next = null;
+        return last;
+    }
+
+    //把a节点的链表逆序
+
+    public static Node revserseA(Node a) {
+        Node pre, cur, next;
+        pre = null;
+        cur = next = a;
+        while (cur != null) {
+            next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+
+    //ab节点之间
+    public static Node reverseAB(Node a, Node b) {
+        Node pre, cur, next;
+        pre = null;
+        cur = a;
+        next = b;
+        while (cur != b) {
+            next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+
+
 
 
     /**
