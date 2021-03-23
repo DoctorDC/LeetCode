@@ -1,5 +1,6 @@
 package com.example.mathdemo;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -171,7 +172,7 @@ public class LabuLa {
 
     /**
      * 反转二叉树
-     *
+     * <p>
      * 交换左右节点
      */
 
@@ -194,6 +195,76 @@ public class LabuLa {
         invertTree2(root.left);
         invertTree2(root.right);
         return root;
+    }
+
+
+    /*
+    已知有125  组成11最小个数
+        找到10 9 6最小组成
+        然后再加1
+
+     */
+    //暴力
+    public int coinChangebaoli(int[] coins, int amount) {
+        if (amount == 0) return 0;
+        if (amount < 0) return -1;
+
+        int res = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            int subProblem = coinChangebaoli(coins, amount - coin);
+            if (subProblem == -1) continue;
+            res = Math.min(res, subProblem + 1);
+        }
+
+        return res == Integer.MAX_VALUE ? -1 : res;
+    }
+    //
+    /**
+     * 使用备忘录
+     * <p>
+     * 先创建一个备忘数组mem
+     * 进入for之前检查数组mem[amount]的值
+     * if有值 返回 ，没有值 进入for
+     * 最后把res值给mem[amount]
+     */
+
+    int[] mem;
+
+    public int coinChange(int[] coins, int amount) {
+        mem = new int[amount + 1];
+        Arrays.fill(mem, -666);
+        return dp(coins, amount);
+    }
+
+    public int dp(int[] coins, int amount) {
+        if (amount == 0) return 0;
+        if (amount < 0) return -1;
+        int res = Integer.MAX_VALUE;
+        if (mem[amount] != -666)
+            return mem[amount];
+        for (int coin : coins) {
+            int subProblem = dp(coins, amount - coin);
+            if (subProblem == -1) continue;
+            res = Math.min(res, subProblem + 1);
+        }
+        mem[amount] = (res == Integer.MAX_VALUE) ? -1 : res;
+        return mem[amount];
+    }
+
+    //自低向上
+    public int coinChange2(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        for (int i = 0; i < dp.length; i++) {
+            for (int coin : coins) {
+                if (i - coin < 0) continue;
+                dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
+            }
+
+        }
+        return (dp[amount] == amount + 1) ? -1 : dp[amount];
+
     }
 
 }
